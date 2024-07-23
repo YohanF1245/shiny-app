@@ -70,25 +70,28 @@ function Freelance() {
     //     fetchFreelanceProfiles()
     // }, [])
 
-    const data = useFetch('http://localhost:8000/freelances')
-    const freelanceProfiles = data;
-    console.log(freelanceProfiles.data);
+    const { data, isLoading, error } = useFetch('http://localhost:8000/freelances')
+    const freelanceProfiles = data ? data.freelancersList : [];
+    console.log(freelanceProfiles);
     
     return (
         <div>
             <StyledH1>Trouvez votre prestataire</StyledH1>
             <StyledH2>Chez Shiny nous réunissons des meilleurs profils pour vous.</StyledH2>
-            <CardsContainer>
-
-            {freelanceProfiles && freelanceProfiles.map((profile) => (
-                <Card
-                    key={profile.id}
-                    label={profile.job}
-                    title={profile.name}
-                    picture={profile.picture}
-                />
-            ))}
-            </CardsContainer>
+            {isLoading ? (
+        <p>Chargement...</p>
+      ) : (
+        <CardsContainer>
+          { freelanceProfiles &&freelanceProfiles.map((profile, index) => (
+            <Card
+              key={`${profile.name}-${index}`}
+              label={profile.job}
+              title={profile.name}
+              picture={profile.picture}
+            />
+          ))}
+        </CardsContainer>
+      )}
         </div>
     )
 }
