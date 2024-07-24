@@ -39,11 +39,15 @@ const StyledHomeText = styled.p`
   line-height: 80px;
   color: ${colors.text};
 `
+export function sum (a, b) {
+  return a + b;
+}
 function App() {
 
   return (
     <>
       <StyledHomeWrapper>
+        {sum(40, 2)}
         <StyledHomeLeft>
           <StyledHomeText>Repérez vos besoins,
           on s’occupe du reste, avec les meilleurs talents</StyledHomeText>
